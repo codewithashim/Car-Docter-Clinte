@@ -8,6 +8,10 @@ import Contact from "../../Components/Contact/Contact";
 import NotFound from "../../Components/NotFound/NotFound";
 import Login from "../../Auth/Login/Login";
 import Register from "../../Auth/Register/Register";
+import ServicesDetails from "../Services/ServicesDetails/ServicesDetails";
+import AuthLayout from "../../Layouts/AuthLayout";
+import DashboardLayout from "../../Layouts/DashboardLayout";
+import Dashboard from "../../Dashboard/Dashboard";
 
 const route = createBrowserRouter([
   {
@@ -31,6 +35,10 @@ const route = createBrowserRouter([
         element: <Services></Services>,
       },
       {
+        path: "/serviceDetails/:id",
+        element: <ServicesDetails></ServicesDetails>,
+      },
+      {
         path: "/blogs",
         element: <Blogs></Blogs>,
       },
@@ -39,6 +47,17 @@ const route = createBrowserRouter([
         element: <Contact></Contact>,
       },
       {
+        path: "*",
+        element: <NotFound></NotFound>,
+      },
+    ],
+  },
+  // Auth Layout Routes
+  {
+    path: "/",
+    element: <AuthLayout></AuthLayout>,
+    children: [
+      {
         path: "/login",
         element: <Login></Login>,
       },
@@ -46,11 +65,31 @@ const route = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+
       {
         path: "*",
         element: <NotFound></NotFound>,
       },
     ],
+  },
+  // Dashboard Layout Routes
+  {
+    path: "/",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound></NotFound>,
   },
 ]);
 
