@@ -6,7 +6,7 @@ import logo from "../../Assets/logo.svg";
 const Header = () => {
   return (
     <>
-      <header className="px-6">
+      <header className="px-6 mb-2">
         <div className="navbar bg-base-100">
           <div className="navbar-start">
             <div className="dropdown">

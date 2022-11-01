@@ -1,9 +1,13 @@
 import React from "react";
+import "./Style//Home.css";
+import Hero from "./Hero/Hero";
 
 const Home = () => {
   return (
     <>
-      <h1>Hey Home</h1>
+      <section>
+        <Hero></Hero>
+      </section>
     </>
   );
 };
