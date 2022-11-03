@@ -1,9 +1,20 @@
-import React from "react";
-import { FaShoppingCart, FaSearch } from "react-icons/fa";
+import React, { useContext } from "react";
+import {
+  FaShoppingCart,
+  FaSearch,
+  FaUserCheck,
+  FaRegSun,
+  FaSignOutAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
+import { AuthContext } from "../../Context/UserContext";
+import userIcon from "../../Assets/icons/userIcon.png";
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
+
   return (
     <>
       <header className="px-6 mb-2">
@@ -71,7 +82,58 @@ const Header = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <div className="flex items-center gap-4">
+            {user?.uid ? (
+              <>
+                <div className="dropdown dropdown-end">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      {user?.photoURL ? (
+                        <img src={user?.photoURL} alt={user?.displayName} />
+                      ) : (
+                        <img src={userIcon} alt={user?.displayName} />
+                      )}
+                    </div>
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <Link className="justify-between">
+                        {user?.displayName}
+                        <span className="badge">New</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="justify-between">
+                        <FaUserCheck></FaUserCheck> Profile
+                        <span className="badge">New</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard">
+                        <FaRegSun></FaRegSun> Dashboard
+                      </Link>
+                    </li>
+                    <li>
+                      <Link onClick={logout}>
+                        <FaSignOutAlt></FaSignOutAlt> Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="btn btn-ghost normal-case">
+                  Login
+                </Link>
+              </>
+            )}
+            <div className="flex mx-3 items-center gap-4">
               <div className="hidden md:block">
                 <div className="flex gap-4">
                   <Link>

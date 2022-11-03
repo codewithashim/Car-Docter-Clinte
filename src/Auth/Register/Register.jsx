@@ -2,8 +2,11 @@ import React from "react";
 import { FaFacebookF, FaGoogle, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import login from "../../Assets/images/login/login.svg";
+import UseFirebase from "../../Hooks/UseFirebase";
 
 const Register = () => {
+  const { handelGoogleLogin, handelFacebookLogin, handelEmailSignUp } =
+    UseFirebase();
   return (
     <section>
       <div className="hero min-h-screen w-full mx-auto bg-base-200">
@@ -13,7 +16,7 @@ const Register = () => {
           </div>
 
           <div className="md:w-3/4 border rounded p-6 shadow">
-            <form action="">
+            <form action="" onSubmit={(event) => handelEmailSignUp(event)}>
               <div>
                 <h2 className="card-title text-center">Sign Up</h2>
               </div>
@@ -26,6 +29,18 @@ const Register = () => {
                   required
                   name="fullname"
                   placeholder="Full Name"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  name="photoURL"
+                  placeholder="Photo URL"
                   className="input input-bordered"
                 />
               </div>
@@ -72,17 +87,17 @@ const Register = () => {
               </div>
             </form>
             <div className="socialLogin flex justify-center items-center gap-2 mt-3">
-              <Link>
-                <FaGoogle className="text-4xl hover:-translate-y-1 transition-all bg-blue-200 p-2 rounded-full"></FaGoogle>
+              <Link onClick={handelGoogleLogin}>
+                <FaGoogle className="text-4xl hover:-translate-y-1 transition-all bg-blue-300 text-white p-2 rounded-full"></FaGoogle>
+              </Link>
+              <Link onClick={handelFacebookLogin}>
+                <FaFacebookF className="text-4xl hover:-translate-y-1 transition-all  bg-blue-300 text-white p-2 rounded-full"></FaFacebookF>
               </Link>
               <Link>
-                <FaFacebookF className="text-4xl hover:-translate-y-1 transition-all  bg-blue-200 p-2 rounded-full"></FaFacebookF>
+                <FaTwitter className="text-4xl hover:-translate-y-1 transition-all  bg-blue-300 text-white p-2 rounded-full"></FaTwitter>
               </Link>
               <Link>
-                <FaTwitter className="text-4xl hover:-translate-y-1 transition-all  bg-blue-200 p-2 rounded-full"></FaTwitter>
-              </Link>
-              <Link>
-                <FaLinkedin className="text-4xl hover:-translate-y-1 transition-all  bg-blue-200 p-2 rounded-full"></FaLinkedin>
+                <FaLinkedin className="text-4xl hover:-translate-y-1 transition-all  bg-blue-300 text-white p-2 rounded-full"></FaLinkedin>
               </Link>
             </div>
           </div>
