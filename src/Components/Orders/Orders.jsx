@@ -9,7 +9,7 @@ const Orders = () => {
   const [orders, setOrder] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+    fetch(`https://car-rent-server-codewithashim.vercel.app/orders?email=${user?.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -35,7 +35,7 @@ const Orders = () => {
     );
 
     if (procide) {
-      fetch(`http://localhost:5000/deleteOrder/${_id}`, {
+      fetch(`https://car-rent-server-codewithashim.vercel.app/deleteOrder/${_id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

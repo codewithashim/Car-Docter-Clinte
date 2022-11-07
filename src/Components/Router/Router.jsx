@@ -52,7 +52,7 @@ const route = createBrowserRouter([
       {
         path: "/checkout/:id",
         loader: ({ params }) => {
-          return fetch(`http://localhost:5000/services/${params.id}`);
+          return fetch(`https://car-rent-server-codewithashim.vercel.app/services/${params.id}`);
         },
         element: (
           <PrivetRoute>

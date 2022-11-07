@@ -13,7 +13,7 @@ const Services = () => {
 
   useEffect(() => {
     return () => {
-      fetch("http://localhost:5000/services")
+      fetch("https://car-rent-server-codewithashim.vercel.app/services")
         .then((res) => res.json())
         .then((data) => setServices(data.data));
     };

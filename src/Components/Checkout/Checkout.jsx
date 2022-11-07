@@ -28,7 +28,7 @@ const Checkout = () => {
       serviceName: title,
     };
 
-    fetch("http://localhost:5000/addOrder", {
+    fetch("https://car-rent-server-codewithashim.vercel.app/addOrder", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

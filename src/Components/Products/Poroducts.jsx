@@ -34,7 +34,7 @@ const Poroducts = () => {
           </p>
         </div>
         <div className="productsContaint grid gap-4 md:grid-cols-3 py-6">
-          {products.slice(0, viseble).map((product) => (
+          {products.map((product) => (
             <Product key={product.id} product={product}></Product>
           ))}
         </div>
