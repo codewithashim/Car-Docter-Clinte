@@ -5,7 +5,6 @@ import {
   FaUserCheck,
   FaRegSun,
   FaSignOutAlt,
-  FaUserCircle,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo.svg";
@@ -17,7 +16,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="px-6 mb-2">
+      <header className="px-2 mb-2">
         <div className="navbar bg-base-100">
           <div className="navbar-start">
             <div className="dropdown">
@@ -82,7 +81,7 @@ const Header = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            {user?.uid ? (
+            {user?.email ? (
               <>
                 <div className="dropdown dropdown-end">
                   <label
@@ -133,7 +132,7 @@ const Header = () => {
                 </Link>
               </>
             )}
-            <div className="flex mx-3 items-center gap-4">
+            <div className="flex mx-2 items-center gap-2">
               <div className="hidden md:block">
                 <div className="flex gap-4">
                   <Link>
@@ -144,7 +143,7 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-              <Link className="btn btn-outline btn-warning">Appointment</Link>
+              <Link className="btn btn-outline btn-warning btn-sm sm:text-[10px]">Appointment</Link>
             </div>
           </div>
         </div>

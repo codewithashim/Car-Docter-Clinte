@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
 const Service = ({ service }) => {
-  console.log(service);
   const { title, img, _id, price, description } = service;
 
   return (
@@ -23,7 +22,14 @@ const Service = ({ service }) => {
               <div className="badge badge-secondary">NEW</div>
             </h2>
             <p>{description.slice(0, 150) + "...."}</p>
+            <Link
+              to={`/checkout/${_id}`}
+              className="btn btn-warning mt-2 mx-auto btn-sm w-44"
+            >
+              Book Now
+            </Link>
           </div>
+
           <div>
             <Link
               to={`/serviceDetails/${_id}`}

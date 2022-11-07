@@ -21,20 +21,24 @@ const UserContext = ({ children }) => {
 
   // =================== google login  ===================
   const googleLoginProvider = (provider) => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
   // =================== Facebook login  ===================
   const facebookLoginProvider = (provider) => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
   // ==================== Email Sign Up ====================
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // ==================== Email Sign In ====================
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -43,8 +47,11 @@ const UserContext = ({ children }) => {
   };
   // ==================== Sign Out ====================
   const logout = () => {
+    localStorage.removeItem("token");
+    setLoading(true);
     signOut(auth)
       .then(() => {
+        setLoading(true);
         // Sign-out successful.
         Swal.fire("Succesfully Logout!", "You clicked the button!", "success");
       })
@@ -61,13 +68,8 @@ const UserContext = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setLoading(false);
-      } else {
-        setUser(null);
-        setLoading(false);
-      }
+      setUser(user);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -81,6 +83,7 @@ const UserContext = ({ children }) => {
     setError,
     logout,
     loading,
+    setLoading,
     signInUser,
     createUser,
     updateUserDetails,

@@ -12,6 +12,9 @@ import ServicesDetails from "../Services/ServicesDetails/ServicesDetails";
 import AuthLayout from "../../Layouts/AuthLayout";
 import DashboardLayout from "../../Layouts/DashboardLayout";
 import Dashboard from "../../Dashboard/Dashboard";
+import Checkout from "../Checkout/Checkout";
+import PrivetRoute from "./PrivetRoute";
+import Orders from "../Orders/Orders";
 
 const route = createBrowserRouter([
   {
@@ -47,6 +50,25 @@ const route = createBrowserRouter([
         element: <Contact></Contact>,
       },
       {
+        path: "/checkout/:id",
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/services/${params.id}`);
+        },
+        element: (
+          <PrivetRoute>
+            <Checkout></Checkout>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivetRoute>
+            <Orders></Orders>
+          </PrivetRoute>
+        ),
+      },
+      {
         path: "*",
         element: <NotFound></NotFound>,
       },
@@ -79,8 +101,16 @@ const route = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivetRoute>
+            <Dashboard></Dashboard>
+          </PrivetRoute>
+        ),
       },
+      // {
+      //   path: "/orders",
+      //   element: <Orders></Orders>,
+      // },
       {
         path: "*",
         element: <NotFound></NotFound>,

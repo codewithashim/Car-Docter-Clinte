@@ -2,16 +2,23 @@ import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "../Context/UserContext";
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UseFirebase = () => {
   const {
     googleLoginProvider,
     facebookLoginProvider,
     setError,
+    setLoading,
     signInUser,
     updateUserDetails,
     createUser,
   } = useContext(AuthContext);
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+
   // =================== google login  ====================
   const googleProvider = new GoogleAuthProvider();
   const handelGoogleLogin = (event) => {
@@ -21,9 +28,19 @@ const UseFirebase = () => {
         const user = result.user;
         console.log(user);
         Swal.fire("Succesfully Login!", "You clicked the button!", "success");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        const errorMessage = error.message;
+        setError(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -36,10 +53,19 @@ const UseFirebase = () => {
         const user = result.user;
         console.log(user);
         Swal.fire("Succesfully Login!", "You clicked the button!", "success");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
-        Swal.fire("Error!", "You clicked the button!", "error");
+        const errorMessage = error.message;
+        setError(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -62,9 +88,13 @@ const UseFirebase = () => {
         form.reset();
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.message);
-        Swal.fire("Error!", "You clicked the button!", "error");
+        const errorMessage = error.message;
+        setError(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+        });
       });
   };
 
@@ -79,9 +109,13 @@ const UseFirebase = () => {
         // Swal.fire("Succesfully Update!", "You clicked the button!", "success");
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.message);
-        Swal.fire("Error!", "You clicked the button!", "error");
+        const errorMessage = error.message;
+        setError(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+        });
       });
   };
 
@@ -96,16 +130,42 @@ const UseFirebase = () => {
     signInUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        Swal.fire("Succesfully Sign In!", "You clicked the button!", "success");
+        const currentUser = {
+          email: user.email,
+        };
+        console.log(currentUser);
+
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+            navigate(from, { replace: true });
+          });
+
         form.reset();
+        Swal.fire("Succesfully Sign In!", "You clicked the button!", "success");
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.message);
-        Swal.fire("Error!", "You clicked the button!", "error");
+        const errorMessage = error.message;
+        setError(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
+
+  //================================ get jwt token ================================
 
   //=======================================================
 
