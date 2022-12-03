@@ -3,18 +3,26 @@ import { Link } from "react-router-dom";
 import { FaRegWindowClose } from "react-icons/fa";
 
 const OrderRow = ({ order, hendelDelete }) => {
-  const { serviceName, price, customar, email, phone, service, _id, status } =
-    order;
+  const {
+    serviceName,
+    price,
+    customar,
+    email,
+    phone,
+    service,
+    _id,
+    status,
+  } = order;
   const [orderService, setOrderService] = useState({});
 
   useEffect(() => {
-    return () => {
-      fetch(`https://car-rent-server-codewithashim.vercel.app/services/${service}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setOrderService(data.data);
-        });
-    };
+    fetch(
+      `https://car-rent-server-codewithashim.vercel.app/services/${service}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setOrderService(data.data);
+      });
   }, [service]);
 
   return (

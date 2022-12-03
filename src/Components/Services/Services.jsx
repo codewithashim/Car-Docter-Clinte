@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Service from "./Service/Service";
@@ -6,18 +6,34 @@ import Service from "./Service/Service";
 const Services = () => {
   const [services, setServices] = useState([]);
   const [viseble, setViseble] = useState(6);
-  
   const showMore = () => {
     setViseble(viseble + 3);
   };
+  const searchRef = useRef();
+  const [search, setSearch] = useState("");
+  const [isAse, setIsAse] = useState(true);
 
   useEffect(() => {
-    return () => {
-      fetch("https://car-rent-server-codewithashim.vercel.app/services")
-        .then((res) => res.json())
-        .then((data) => setServices(data.data));
-    };
-  }, []);
+    fetch(
+      `http://localhost:5000/services?search=${search}&order=${
+        isAse ? "ase" : "desc"
+      }`
+    )
+      .then((res) => res.json())
+      .then((data) => setServices(data.data));
+
+    // return () => {
+    //   // fetch("https://car-rent-server-codewithashim.vercel.app/services")
+    // };
+  }, [isAse, search]);
+
+  console.log(services);
+
+  const hendelSearch = () => {
+    const search = searchRef.current.value;
+    setSearch(search);
+    console.log(search);
+  };
 
   return (
     <>
@@ -31,6 +47,28 @@ const Services = () => {
             believable.
           </p>
         </div>
+        <div className="flex justify-center items-center gap-4">
+          <div className="mx-auto w-3/4 flex justify-center items-center gap-4 my-2">
+            <input
+              type="text"
+              ref={searchRef}
+              placeholder="Type here"
+              className="input input-bordered input-success w-full max-w-xs"
+            />
+            <button onClick={() => hendelSearch()} className="btn btn-warning">
+              Search.
+            </button>
+          </div>
+          <div className="mx-auto flex justify-center items-center">
+            <button
+              className="btn btn-warning btn-outline"
+              onClick={() => setIsAse(!isAse)}
+            >
+              {isAse ? "dsc" : "asc"}
+            </button>
+          </div>
+        </div>
+
         <div className="ourServices p-6">
           <div className="mx-auto grid gap-6 md:grid-cols-3">
             {services.slice(0, viseble).map((service) => (

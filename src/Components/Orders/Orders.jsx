@@ -9,11 +9,14 @@ const Orders = () => {
   const [orders, setOrder] = useState([]);
 
   useEffect(() => {
-    fetch(`https://car-rent-server-codewithashim.vercel.app/orders?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `https://car-rent-server-codewithashim.vercel.app/orders?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           logout();
@@ -35,9 +38,12 @@ const Orders = () => {
     );
 
     if (procide) {
-      fetch(`https://car-rent-server-codewithashim.vercel.app/deleteOrder/${_id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://car-rent-server-codewithashim.vercel.app/deleteOrder/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
@@ -49,17 +55,6 @@ const Orders = () => {
             const remeingingOrder = orders.filter((order) => order._id !== _id);
             setOrder(remeingingOrder);
           }
-
-          // if (data.deletedCount > 0) {
-          //   Swal.fire(
-          //     "Succesfully Delete!",
-          //     "You clicked the button!",
-          //     "success"
-          //   );
-          //   alert("Succesfully Delete!");
-          //   const remeingingOrder = orders.filter((order) => order._id !== _id);
-          //   setOrder(remeingingOrder);
-          // }
         });
     }
   };

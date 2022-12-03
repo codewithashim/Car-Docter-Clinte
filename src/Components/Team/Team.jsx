@@ -10,11 +10,9 @@ import { Link } from "react-router-dom";
 const Team = () => {
   const [teams, setTeams] = React.useState([]);
   useEffect(() => {
-    return () => {
-      fetch("Team.json")
-        .then((response) => response.json())
-        .then((data) => setTeams(data));
-    };
+    fetch("Team.json")
+      .then((response) => response.json())
+      .then((data) => setTeams(data));
   }, []);
 
   return (

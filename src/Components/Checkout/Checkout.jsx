@@ -18,7 +18,6 @@ const Checkout = () => {
     const name = form.fullName.value;
     const phone = form.phone.value;
     const email = user?.email.value || form.email.value;
-
     const order = {
       phone,
       email,

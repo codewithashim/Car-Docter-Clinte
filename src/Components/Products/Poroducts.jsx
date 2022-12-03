@@ -6,11 +6,9 @@ const Poroducts = () => {
   const [products, setProducts] = useState([]);
   const [viseble, setViseble] = useState(3);
   useEffect(() => {
-    return () => {
-      fetch("products.json")
-        .then((res) => res.json())
-        .then((data) => setProducts(data));
-    };
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
   }, []);
 
   const hendelMoreProduct = () => {
@@ -34,7 +32,7 @@ const Poroducts = () => {
           </p>
         </div>
         <div className="productsContaint grid gap-4 md:grid-cols-3 py-6">
-          {products.map((product) => (
+          {products.slice(0, viseble).map((product) => (
             <Product key={product.id} product={product}></Product>
           ))}
         </div>
