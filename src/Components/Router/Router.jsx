@@ -11,7 +11,6 @@ import Register from "../../Auth/Register/Register";
 import ServicesDetails from "../Services/ServicesDetails/ServicesDetails";
 import AuthLayout from "../../Layouts/AuthLayout";
 import DashboardLayout from "../../Layouts/DashboardLayout";
-import Dashboard from "../../Dashboard/Dashboard";
 import Checkout from "../Checkout/Checkout";
 import PrivetRoute from "./PrivetRoute";
 import Orders from "../Orders/Orders";
@@ -52,7 +51,7 @@ const route = createBrowserRouter([
       {
         path: "/checkout/:id",
         loader: ({ params }) => {
-          return fetch(`https://car-rent-server-codewithashim.vercel.app/services/${params.id}`);
+          return fetch(`https://car-rent-server.vercel.app/services/${params.id}`);
         },
         element: (
           <PrivetRoute>
@@ -60,14 +59,7 @@ const route = createBrowserRouter([
           </PrivetRoute>
         ),
       },
-      {
-        path: "/orders",
-        element: (
-          <PrivetRoute>
-            <Orders></Orders>
-          </PrivetRoute>
-        ),
-      },
+
       {
         path: "*",
         element: <NotFound></NotFound>,
@@ -96,21 +88,18 @@ const route = createBrowserRouter([
   },
   // Dashboard Layout Routes
   {
-    path: "/",
+    path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
     children: [
       {
-        path: "/dashboard",
+        path: "/dashboard/orders",
         element: (
           <PrivetRoute>
-            <Dashboard></Dashboard>
+            <Orders></Orders>
           </PrivetRoute>
         ),
       },
-      // {
-      //   path: "/orders",
-      //   element: <Orders></Orders>,
-      // },
+
       {
         path: "*",
         element: <NotFound></NotFound>,

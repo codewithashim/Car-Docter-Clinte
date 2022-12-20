@@ -15,7 +15,7 @@ const Services = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/services?search=${search}&order=${
+      `https://car-rent-server.vercel.app/services?search=${search}&order=${
         isAse ? "ase" : "desc"
       }`
     )
@@ -23,7 +23,7 @@ const Services = () => {
       .then((data) => setServices(data.data));
 
     // return () => {
-    //   // fetch("https://car-rent-server-codewithashim.vercel.app/services")
+    //   // fetch("https://car-rent-server.vercel.app//services")
     // };
   }, [isAse, search]);
 

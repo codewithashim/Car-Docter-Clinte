@@ -8,7 +8,6 @@ const Checkout = () => {
   const { user } = useContext(AuthContext);
   const services = useLoaderData();
   const service = services.data;
-  console.log(service);
   const { title, _id, price, img } = service;
 
   const hendelSubmit = (event) => {
@@ -27,7 +26,7 @@ const Checkout = () => {
       serviceName: title,
     };
 
-    fetch("https://car-rent-server-codewithashim.vercel.app/addOrder", {
+    fetch("https://car-rent-server.vercel.app/addOrder", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

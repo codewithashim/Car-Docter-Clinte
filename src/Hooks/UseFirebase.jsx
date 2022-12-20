@@ -135,7 +135,7 @@ const UseFirebase = () => {
         };
         console.log(currentUser);
 
-        fetch("https://car-rent-server-codewithashim.vercel.app/jwt", {
+        fetch("https://car-rent-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

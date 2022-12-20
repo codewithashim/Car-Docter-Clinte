@@ -17,7 +17,7 @@ const OrderRow = ({ order, hendelDelete }) => {
 
   useEffect(() => {
     fetch(
-      `https://car-rent-server-codewithashim.vercel.app/services/${service}`
+      `https://car-rent-server.vercel.app/services/${service}`
     )
       .then((res) => res.json())
       .then((data) => {
